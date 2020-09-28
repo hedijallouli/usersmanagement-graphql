@@ -2,6 +2,7 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { typeDefs } from './schema.js'
 import { resolvers } from './resolver.js'
+import cors from 'cors';
 
 const app = express();
 
@@ -22,6 +23,15 @@ const server = new ApolloServer({
 });
 
 app.use(server.graphqlPath, auth);
+
+// CORS Policy
+var corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)) 
+console.log('[CORS] Origin policy: ' + corsOptions.origin);
 
 server.applyMiddleware({ app });
 

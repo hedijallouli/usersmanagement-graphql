@@ -26,5 +26,8 @@ export const typeDefs = gql`
     createUser(name: String email: String password:String birthDate: String): User 
     deleteUser(id: ID!): User
     updateUser(id: ID! name: String email: String password:String birthDate: String): User 
+    updateUsersPassword(id:ID! oldPassword: String newPassword:String): User
+    requestReset(email:String):Boolean
+    resetPassword(email:String password:String confirmPassword:String resetToken:String ):User
   }
 `;
